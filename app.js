@@ -33,7 +33,7 @@ app.post("/api/products", async (req, res) => {
     await client.connect();
 
     const {name, price, category} = req.body;
-    const query = `INSERT INTO products(name, price, category) VALUES($1, $2, $3)`;
+    const query = "INSERT INTO products(name, price, category) VALUES($1, $2, $3)";
     const values = [name, price, category];
     
     await client.query(query, values);
@@ -44,6 +44,24 @@ app.post("/api/products", async (req, res) => {
     res.status(500).json({ error: 'An error occurred while creating the product' });
   } finally {
     client.end(); 
+  }
+});
+
+app.delete("/api/products/:id", async (req, res) => {
+  const client = new Client({ database: 'ecommerce'});
+
+  try {
+    await client.connect();
+    const query = "DELETE FROM products WHERE id = $1";
+    const values = [req.params.id];
+    await client.query(query, values);
+
+    res.status(204)
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'An error occurred while deleting the product' });
+  } finally {
+    client.end();
   }
 });
 
