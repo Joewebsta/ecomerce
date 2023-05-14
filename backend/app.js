@@ -35,12 +35,12 @@ app.post("/api/products", async (req, res) => {
     await client.connect();
 
     const { name, price, category } = req.body;
-    const query = "INSERT INTO products(name, price, category) VALUES($1, $2, $3)";
+    const query = "INSERT INTO products(name, price, category) VALUES($1, $2, $3) RETURNING *";
     const values = [name, price, category];
 
-    await client.query(query, values);
+    const result = await client.query(query, values);
 
-    res.status(201).json({ message: 'Product created successfully' });
+    res.status(201).json(result.rows[0]);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'An error occurred while creating the product' });
