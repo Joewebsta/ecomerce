@@ -58,7 +58,7 @@ app.delete("/api/products/:id", async (req, res) => {
     const values = [req.params.id];
     await client.query(query, values);
 
-    res.status(204)
+    res.sendStatus(204)
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'An error occurred while deleting the product' });

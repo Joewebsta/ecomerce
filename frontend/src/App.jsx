@@ -2,30 +2,41 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
 
-const ProductList = ({ products }) => {
+const ProductList = ({ products, handleDelete }) => {
   const productList = products.map(product => {
-    return <Product key={product.id} product={product} />
+    return <Product key={product.id} product={product} handleDelete={handleDelete} />
   });
 
   return <ul>{productList}</ul>;
 }
 
-const Product = ({ product }) => {
+const Product = ({ product, handleDelete }) => {
   const { id, name, price, category } = product;
   return <li key={id}>
     <p>{name}{price}{category}</p>
-    <button>delete</button>
+    <button onClick={() => { handleDelete(id) }}>delete</button>
   </li>
 }
 
 const App = () => {
-  const [products, useProducts] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/products/${id}`);
+
+      const filteredProducts = products.filter(product => product.id !== id);
+      setProducts(filteredProducts);
+    } catch (error) {
+      console.log('Error:', error.message);
+    }
+  }
 
   useEffect(() => {
     const getProducts = async () => {
       const response = await axios.get('http://localhost:3000/api/products');
       console.log(response.data);
-      useProducts(response.data);
+      setProducts(response.data);
 
     }
 
@@ -35,8 +46,8 @@ const App = () => {
 
   return (
     <>
-      <h1>Hello world!</h1>
-      <ProductList products={products} />
+      <h1>Products</h1>
+      <ProductList products={products} handleDelete={handleDelete} />
     </>
   )
 }
