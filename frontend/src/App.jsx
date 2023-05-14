@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react';
+import { useState } from 'react'
 import { useEffect } from 'react'
-import axios from 'axios'
+import productService from './service/productService';
 
 import ProductList from './components/ProductList';
 import CreateProductForm from './components/CreateProductForm';
@@ -11,42 +12,31 @@ const App = () => {
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState('');
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:3000/api/products/${id}`);
-
-      const filteredProducts = products.filter(product => product.id !== id);
-      setProducts(filteredProducts);
-    } catch (error) {
-      console.log('Error:', error.message);
+  useEffect(() => {
+    const getProducts = async () => {
+      const products = await productService.getProducts();
+      setProducts(products);
     }
+
+    getProducts();
+  }, []);
+
+  const handleDelete = async (id) => {
+    productService.deleteProduct(id);
+    const filteredProducts = products.filter(product => product.id !== id);
+    setProducts(filteredProducts);
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newProduct = { name, price, category };
+    const createdProduct = await productService.createProduct(newProduct);
+    setProducts([...products, createdProduct]);
 
-    try {
-      const response = await axios.post("http://localhost:3000/api/products/", newProduct);
-      const createdProduct = response.data;
-      setProducts([...products, createdProduct]);
-      setName('');
-      setPrice('');
-      setCategory('');
-    } catch (error) {
-      console.log('Error:', error.message);
-    }
+    setName('');
+    setPrice('');
+    setCategory('');
   }
-
-  useEffect(() => {
-    const getProducts = async () => {
-      const response = await axios.get('http://localhost:3000/api/products');
-      console.log(response.data);
-      setProducts(response.data);
-    }
-
-    getProducts();
-  }, []);
 
   return (
     <>
