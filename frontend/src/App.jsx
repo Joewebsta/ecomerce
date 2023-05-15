@@ -1,10 +1,13 @@
 import React from 'react';
 import { useState } from 'react'
 import { useEffect } from 'react'
+
 import productService from './service/productService';
 
 import ProductList from './components/ProductList';
 import CreateProductForm from './components/CreateProductForm';
+
+import './styles/main.css'
 
 const App = () => {
   const [products, setProducts] = useState([]);

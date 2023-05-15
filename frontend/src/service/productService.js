@@ -9,7 +9,6 @@ const getProducts = async () => {
   } catch (error) {
     throw new Error('Failed fetching products');
   }
-
 }
 
 const createProduct = async (newProduct) => {

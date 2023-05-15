@@ -10,11 +10,11 @@ const Product = ({
     price,
     category
   } = product;
-  return <li>
-    <p>{name}{price}{category}</p>
-    <button onClick={() => {
-      handleDelete(id);
-    }}>delete</button>
+  return <li className="product">
+    <span>{name}</span>
+    <span>{price}</span>
+    <span>{category}</span>
+    <button onClick={() => { handleDelete(id) }}>delete</button>
   </li>;
 };
 
