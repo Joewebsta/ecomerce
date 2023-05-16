@@ -15,6 +15,10 @@ app.get("/ping", (req, res) => {
 
 app.get("/api/products", async (req, res) => {
   const client = new Client({ database: 'ecommerce' });
+  console.log("password", client.password);
+  console.log("user", client.user);
+  console.log("database", client.database);
+  console.log("host", client.host);
 
   try {
     await client.connect();
