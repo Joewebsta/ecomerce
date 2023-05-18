@@ -3,7 +3,8 @@ const app = express();
 const { Client } = require('pg');
 const morgan = require('morgan');
 const cors = require('cors');
-
+const mongoose = require('mongoose');
+const User = require('./models/user')
 require('dotenv').config()
 
 app.use(express.json());
@@ -11,16 +12,21 @@ app.use(express.static('dist'));
 app.use(cors());
 app.use(morgan('dev'));
 
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('Error connecting to MongoDB:', err));
+
 app.get("/ping", (req, res) => {
   res.status(200).send("pong");
 });
 
+app.get("/api/users", async (req, res) => {
+  const users = await User.find();
+  res.status(200).json(users);
+});
+
 app.get("/api/products", async (req, res) => {
   const client = new Client({ database: 'ecommerce' });
-  console.log("password", client.password);
-  console.log("user", client.user);
-  console.log("database", client.database);
-  console.log("host", client.host);
 
   try {
     await client.connect();
