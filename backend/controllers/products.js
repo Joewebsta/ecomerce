@@ -2,8 +2,6 @@ const productsRouter = require('express').Router();
 const { Client } = require('pg');
 
 productsRouter.get("/", async (req, res) => {
-  console.log('hello world!');
-
   const client = new Client({ database: 'ecommerce' });
 
   try {
