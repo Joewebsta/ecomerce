@@ -1,12 +1,9 @@
 import React from 'react';
-import { useState } from 'react'
-import { useEffect } from 'react'
-
+import { useState, useEffect } from 'react'
+import { Routes, Route } from "react-router-dom";
 import productService from './service/productService';
-
-import ProductList from './components/ProductList';
-import CreateProductForm from './components/CreateProductForm';
-
+import ProductPage from './components/ProductPage';
+import NavigationLinks from './components/NavigationLinks';
 import './styles/main.css'
 
 const App = () => {
@@ -41,22 +38,26 @@ const App = () => {
     setCategory('');
   }
 
+  const productPageProps = {
+    name,
+    price,
+    category,
+    products,
+    handleSubmit,
+    setName,
+    setPrice,
+    setCategory,
+    handleDelete,
+  }
+
   return (
     <>
-      <h1>Products</h1>
-      <CreateProductForm
-        name={name}
-        price={price}
-        category={category}
-        handleSubmit={handleSubmit}
-        setName={setName}
-        setPrice={setPrice}
-        setCategory={setCategory}
-      />
-      <ProductList
-        products={products}
-        handleDelete={handleDelete}
-      />
+      <NavigationLinks />
+      <Routes>
+        <Route path="/products" element={<ProductPage {...productPageProps} />} />
+        <Route path="/" element={<ProductPage {...productPageProps} />} />
+        <Route path="/users" element={<h1>Users</h1>} />
+      </Routes>
     </>
   )
 }
