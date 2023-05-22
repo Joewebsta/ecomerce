@@ -5,7 +5,7 @@ const User = ({
   handleDelete
 }) => {
   const {
-    id,
+    _id: id,
     first_name: firstName,
     last_name: lastName,
     age,

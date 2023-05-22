@@ -4,19 +4,7 @@ import ProductList from "./ProductList";
 import { useState, useEffect } from 'react'
 import productService from '../service/productService';
 
-const ProductPage = (props) => {
-  // const {
-  //   name,
-  //   price,
-  //   category,
-  //   handleSubmit,
-  //   setName,
-  //   setPrice,
-  //   setCategory,
-  //   products,
-  //   handleDelete
-  // } = props;
-
+const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');

@@ -21,13 +21,13 @@ const getUsers = async () => {
 //   }
 // }
 
-// const deleteProduct = async (id) => {
-//   try {
-//     await axios.delete(`${API_BASE_URL}/${id}`);
-//   } catch (error) {
-//     throw new Error('Failed to delete product.');
-//   }
-// }
+const deleteUser = async (id) => {
+  try {
+    await axios.delete(`${API_BASE_URL}/${id}`);
+  } catch (error) {
+    throw new Error('Failed to delete user.');
+  }
+}
 
 
-export default { getUsers }
+export default { getUsers, deleteUser }

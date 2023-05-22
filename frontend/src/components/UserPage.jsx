@@ -4,19 +4,7 @@ import UserList from "./UserList";
 import { useState, useEffect } from 'react'
 import userService from '../service/userService';
 
-const UserPage = (props) => {
-  // const {
-  //   name,
-  //   price,
-  //   category,
-  //   handleSubmit,
-  //   setName,
-  //   setPrice,
-  //   setCategory,
-  //   products,
-  //   handleDelete
-  // } = props;
-
+const UserPage = () => {
   const [users, setUsers] = useState([]);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -34,7 +22,7 @@ const UserPage = (props) => {
 
   const handleDelete = async (id) => {
     userService.deleteUser(id);
-    const filteredUsers = users.filter(user => user.id !== id);
+    const filteredUsers = users.filter(user => user._id !== id);
     setUsers(filteredUsers);
   }
 
