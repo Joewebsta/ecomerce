@@ -1,8 +1,8 @@
 import React from "react";
 import CreateUserForm from "./CreateUserForm";
-// import ProductList from "./ProductList";
+import UserList from "./UserList";
 import { useState, useEffect } from 'react'
-// import productService from '../service/productService';
+import userService from '../service/userService';
 
 const UserPage = (props) => {
   // const {
@@ -23,20 +23,20 @@ const UserPage = (props) => {
   const [age, setAge] = useState('');
   const [city, setCity] = useState('');
 
-  // useEffect(() => {
-  //   const getProducts = async () => {
-  //     const products = await productService.getProducts();
-  //     setProducts(products);
-  //   }
+  useEffect(() => {
+    const getUsers = async () => {
+      const users = await userService.getUsers();
+      setUsers(users);
+    }
 
-  //   getProducts();
-  // }, []);
+    getUsers();
+  }, []);
 
-  // const handleDelete = async (id) => {
-  //   productService.deleteProduct(id);
-  //   const filteredProducts = products.filter(product => product.id !== id);
-  //   setProducts(filteredProducts);
-  // }
+  const handleDelete = async (id) => {
+    userService.deleteUser(id);
+    const filteredUsers = users.filter(user => user.id !== id);
+    setUsers(filteredUsers);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,7 +53,6 @@ const UserPage = (props) => {
   return (
     <>
       <h1>Users</h1>
-
       <CreateUserForm
         firstName={firstName}
         lastName={lastName}
@@ -65,10 +64,10 @@ const UserPage = (props) => {
         setAge={setAge}
         setCity={setCity}
       />
-      {/* <ProductList
-        products={products}
+      <UserList
+        users={users}
         handleDelete={handleDelete}
-      /> */}
+      />
     </>
   )
 }
