@@ -28,9 +28,11 @@ const UserPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const newProduct = { name, price, category };
-    // const createdProduct = await productService.createProduct(newProduct);
-    // setProducts([...products, createdProduct]);
+    const newUser = { first_name: firstName, last_name: lastName, age, city };
+    console.log(newUser);
+
+    const createdUser = await userService.createUser(newUser);
+    setUsers([...users, createdUser]);
 
     setFirstName('');
     setLastName('');

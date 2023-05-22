@@ -8,13 +8,15 @@ const CreateUserForm = ({ firstName, lastName, age, city, handleSubmit, setFirst
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="name">Name</label>
+      <label htmlFor="name">First Name</label>
       <input type="text" id="firstName" name="firstName" value={firstName} onChange={handleFirstNameChange} />
-      {/* <label htmlFor="price">Price</label>
-      <input type="text" id="price" name="price" value={price} onChange={handlePriceChange} />
-      <label htmlFor="category">Category</label>
-      <input type="text" id="category" name="category" value={category} onChange={handleCategoryChange} /> */}
-      <button type="submit">Create user</button>
+      <label htmlFor="lastName">Last Name</label>
+      <input type="text" id="lastName" name="lastName" value={lastName} onChange={handleLastNameChange} />
+      <label htmlFor="price">Age</label>
+      <input type="text" id="age" name="age" value={age} onChange={handleAgeChange} />
+      <label htmlFor="city">City</label>
+      <input type="text" id="city" name="city" value={city} onChange={handleCityChange} />
+      <button type="submit">Create User</button>
     </form>
   );
 };

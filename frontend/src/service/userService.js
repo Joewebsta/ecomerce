@@ -12,14 +12,14 @@ const getUsers = async () => {
   }
 }
 
-// const createProduct = async (newProduct) => {
-//   try {
-//     const response = await axios.post(API_BASE_URL, newProduct);
-//     return response.data;
-//   } catch (error) {
-//     throw new Error('Failed to create new product.');
-//   }
-// }
+const createUser = async (newUser) => {
+  try {
+    const response = await axios.post(API_BASE_URL, newUser);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to create new user.');
+  }
+}
 
 const deleteUser = async (id) => {
   try {
@@ -30,4 +30,4 @@ const deleteUser = async (id) => {
 }
 
 
-export default { getUsers, deleteUser }
+export default { getUsers, deleteUser, createUser }
